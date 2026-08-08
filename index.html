@@ -1,0 +1,1982 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>B's Day</title>
+
+    <style>
+
+        /* =========================================
+           RESET
+        ========================================= */
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            min-height: 100vh;
+            overflow-x: hidden;
+
+            font-family:
+                "Segoe UI",
+                system-ui,
+                -apple-system,
+                BlinkMacSystemFont,
+                sans-serif;
+
+            color: white;
+
+            background:
+                radial-gradient(
+                    circle at 50% 20%,
+                    #39204f 0%,
+                    transparent 35%
+                ),
+                linear-gradient(
+                    180deg,
+                    #090914 0%,
+                    #140d20 55%,
+                    #24122c 100%
+                );
+        }
+
+        button {
+            font: inherit;
+        }
+
+
+        /* =========================================
+           FIXED TITLE
+        ========================================= */
+
+        .brand {
+            position: fixed;
+
+            top: 22px;
+            left: 50%;
+
+            transform: translateX(-50%);
+
+            z-index: 50;
+
+            font-family: Georgia, serif;
+
+            font-size: 15px;
+
+            letter-spacing: 3px;
+
+            color:
+                rgba(255, 231, 242, 0.88);
+
+            white-space: nowrap;
+
+            user-select: none;
+        }
+
+
+        /* =========================================
+           BACKGROUND STARS
+        ========================================= */
+
+        .sky {
+            position: fixed;
+
+            inset: 0;
+
+            pointer-events: none;
+
+            overflow: hidden;
+
+            z-index: 0;
+        }
+
+        .star {
+            position: absolute;
+
+            width: 2px;
+            height: 2px;
+
+            background: white;
+
+            border-radius: 50%;
+
+            box-shadow:
+                0 0 7px
+                rgba(255,255,255,0.8);
+
+            animation:
+                twinkle 4s
+                ease-in-out
+                infinite;
+        }
+
+        @keyframes twinkle {
+
+            0%, 100% {
+                opacity: .2;
+
+                transform:
+                    scale(.8);
+            }
+
+            50% {
+                opacity: .8;
+
+                transform:
+                    scale(1.2);
+            }
+        }
+
+
+        /* =========================================
+           MAIN APP
+        ========================================= */
+
+        .app {
+            position: relative;
+
+            z-index: 2;
+
+            width: 100%;
+
+            min-height: 100vh;
+        }
+
+
+        /* =========================================
+           LEVELS
+        ========================================= */
+
+        .level {
+            display: none;
+
+            width: 100%;
+
+            min-height: 100vh;
+
+            padding:
+                95px
+                clamp(18px, 5vw, 40px)
+                105px;
+
+            align-items: center;
+
+            justify-content: center;
+
+            flex-direction: column;
+
+            text-align: center;
+
+            animation:
+                fadeIn .7s ease;
+        }
+
+        .level.active {
+            display: flex;
+        }
+
+        @keyframes fadeIn {
+
+            from {
+                opacity: 0;
+
+                transform:
+                    translateY(18px);
+            }
+
+            to {
+                opacity: 1;
+
+                transform:
+                    translateY(0);
+            }
+        }
+
+
+        /* =========================================
+           PROGRESS
+        ========================================= */
+
+        .progress {
+            position: fixed;
+
+            top: 55px;
+
+            left: 50%;
+
+            transform:
+                translateX(-50%);
+
+            display: flex;
+
+            gap: 8px;
+
+            z-index: 50;
+        }
+
+        .dot {
+            width: 8px;
+            height: 8px;
+
+            border-radius: 50%;
+
+            background:
+                rgba(255,255,255,.18);
+
+            transition:
+                width .4s ease,
+                background .4s ease,
+                box-shadow .4s ease;
+        }
+
+        .dot.active {
+            width: 28px;
+
+            border-radius: 20px;
+
+            background:
+                linear-gradient(
+                    90deg,
+                    #ff6fae,
+                    #ffb6d9
+                );
+
+            box-shadow:
+                0 0 13px
+                rgba(255,111,174,.45);
+        }
+
+
+        /* =========================================
+           TYPOGRAPHY
+        ========================================= */
+
+        .eyebrow {
+            margin-bottom: 15px;
+
+            color: #ff9ac6;
+
+            letter-spacing: 4px;
+
+            font-size: 11px;
+
+            text-transform: uppercase;
+        }
+
+        h1 {
+            margin-bottom: 25px;
+
+            font-size:
+                clamp(44px, 8vw, 85px);
+
+            line-height: .95;
+
+            font-weight: 500;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #fff,
+                    #ffb4d8,
+                    #ff6fae
+                );
+
+            -webkit-background-clip: text;
+
+            background-clip: text;
+
+            color: transparent;
+
+            text-shadow:
+                0 0 30px
+                rgba(255,105,170,.18);
+        }
+
+        h2 {
+            margin-bottom: 20px;
+
+            font-size:
+                clamp(32px, 6vw, 55px);
+
+            line-height: 1.05;
+
+            font-weight: 500;
+        }
+
+        .subtitle {
+            width: 100%;
+
+            max-width: 650px;
+
+            margin-bottom: 32px;
+
+            color: #d7cbdc;
+
+            line-height: 1.8;
+
+            font-size: 15px;
+        }
+
+
+        /* =========================================
+           GENERAL BUTTON
+        ========================================= */
+
+        .btn {
+            border: none;
+
+            padding:
+                14px 27px;
+
+            border-radius: 50px;
+
+            color: white;
+
+            font-size: 15px;
+
+            font-weight: 600;
+
+            cursor: pointer;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #ff4f9a,
+                    #a855f7
+                );
+
+            box-shadow:
+                0 8px 30px
+                rgba(255,79,154,.25);
+
+            transition:
+                transform .3s ease,
+                box-shadow .3s ease;
+        }
+
+        .btn:hover {
+            transform:
+                translateY(-3px)
+                scale(1.02);
+
+            box-shadow:
+                0 12px 40px
+                rgba(255,79,154,.4);
+        }
+
+        .btn:active {
+            transform:
+                scale(.96);
+        }
+
+
+        /* =========================================
+           NAVIGATION
+        ========================================= */
+
+        .navigation {
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            gap: 12px;
+
+            margin-top: 28px;
+
+            flex-wrap: wrap;
+        }
+
+        .nav-btn {
+            position: relative;
+
+            display: inline-flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            gap: 10px;
+
+            min-width: 132px;
+
+            padding:
+                12px 20px;
+
+            border-radius: 50px;
+
+            font-size: 14px;
+
+            font-weight: 600;
+
+            cursor: pointer;
+
+            overflow: hidden;
+
+            transition:
+                transform .3s ease,
+                box-shadow .3s ease,
+                border-color .3s ease,
+                background .3s ease;
+        }
+
+        .nav-icon {
+            display: inline-flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            width: 25px;
+            height: 25px;
+
+            border-radius: 50%;
+
+            font-size: 17px;
+
+            transition:
+                transform .3s ease;
+        }
+
+
+        /* BACK */
+
+        .back-btn {
+            color:
+                rgba(255,255,255,.78);
+
+            border:
+                1px solid
+                rgba(255,255,255,.13);
+
+            background:
+                rgba(255,255,255,.045);
+
+            box-shadow:
+                0 8px 25px
+                rgba(0,0,0,.15);
+        }
+
+        .back-btn .nav-icon {
+            background:
+                rgba(255,255,255,.08);
+        }
+
+
+        /* FORWARD */
+
+        .next-btn {
+            color: white;
+
+            border:
+                1px solid
+                rgba(255,132,190,.35);
+
+            background:
+                linear-gradient(
+                    135deg,
+                    rgba(255,79,154,.85),
+                    rgba(168,85,247,.85)
+                );
+
+            box-shadow:
+                0 8px 28px
+                rgba(255,79,154,.22);
+        }
+
+        .next-btn .nav-icon {
+            background:
+                rgba(255,255,255,.14);
+        }
+
+
+        /* NAV HOVER */
+
+        .nav-btn:hover {
+            transform:
+                translateY(-3px);
+        }
+
+        .back-btn:hover {
+            background:
+                rgba(255,255,255,.085);
+
+            border-color:
+                rgba(255,255,255,.25);
+
+            box-shadow:
+                0 10px 28px
+                rgba(0,0,0,.22);
+        }
+
+        .next-btn:hover {
+            box-shadow:
+                0 12px 35px
+                rgba(255,79,154,.35);
+        }
+
+        .back-btn:hover .nav-icon {
+            transform:
+                translateX(-3px);
+        }
+
+        .next-btn:hover .nav-icon {
+            transform:
+                translateX(3px);
+        }
+
+        .nav-btn:active {
+            transform:
+                translateY(0)
+                scale(.96);
+        }
+
+
+        /* =========================================
+           LEVEL 1
+        ========================================= */
+
+        .cake {
+            margin-bottom: 20px;
+
+            font-size:
+                clamp(70px, 10vw, 100px);
+
+            animation:
+                cakeFloat
+                3s
+                ease-in-out
+                infinite;
+
+            filter:
+                drop-shadow(
+                    0 0 25px
+                    rgba(255,105,170,.3)
+                );
+        }
+
+        @keyframes cakeFloat {
+
+            0%, 100% {
+                transform:
+                    translateY(0)
+                    rotate(-2deg);
+            }
+
+            50% {
+                transform:
+                    translateY(-10px)
+                    rotate(2deg);
+            }
+        }
+
+        .birthday-card {
+            width:
+                min(650px, 100%);
+
+            padding:
+                clamp(28px, 5vw, 35px);
+
+            border:
+                1px solid
+                rgba(255,255,255,.1);
+
+            border-radius: 30px;
+
+            background:
+                rgba(255,255,255,.05);
+
+            backdrop-filter:
+                blur(15px);
+
+            box-shadow:
+                0 20px 70px
+                rgba(0,0,0,.25);
+        }
+
+
+        /* =========================================
+           LEVEL 2 — GIFT
+        ========================================= */
+
+        .gift {
+            position: relative;
+
+            width: 180px;
+            height: 150px;
+
+            margin:
+                35px auto;
+
+            cursor: pointer;
+
+            transition:
+                transform .4s ease,
+                filter .4s ease;
+
+            touch-action:
+                manipulation;
+
+            outline: none;
+        }
+
+        .gift:hover {
+            transform:
+                translateY(-5px)
+                scale(1.04);
+
+            filter:
+                drop-shadow(
+                    0 12px 20px
+                    rgba(255,79,154,.2)
+                );
+        }
+
+        .gift:active {
+            transform:
+                translateY(-2px)
+                scale(.98);
+        }
+
+        .gift:focus-visible {
+            filter:
+                drop-shadow(
+                    0 0 15px
+                    rgba(255,154,198,.5)
+                );
+        }
+
+        .gift-box {
+            position: absolute;
+
+            bottom: 0;
+
+            width: 180px;
+            height: 110px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #ff4f9a,
+                    #ff7eb9
+                );
+
+            border-radius: 8px;
+
+            box-shadow:
+                0 20px 40px
+                rgba(255,79,154,.3);
+        }
+
+        .gift-lid {
+            position: absolute;
+
+            top: 20px;
+            left: -8px;
+
+            width: 196px;
+            height: 35px;
+
+            background:
+                #ff9ac6;
+
+            border-radius: 8px;
+
+            z-index: 2;
+
+            transition:
+                transform .55s ease;
+        }
+
+        .ribbon-v {
+            position: absolute;
+
+            left: 75px;
+            top: 20px;
+
+            width: 30px;
+            height: 130px;
+
+            background:
+                #ffd1e5;
+
+            z-index: 3;
+        }
+
+        .ribbon-h {
+            position: absolute;
+
+            left: 0;
+            top: 55px;
+
+            width: 180px;
+            height: 22px;
+
+            background:
+                #ffd1e5;
+
+            z-index: 3;
+        }
+
+        .gift.open .gift-lid {
+            transform:
+                translateY(-55px)
+                rotate(-7deg);
+        }
+
+
+        /* GIFT MESSAGE */
+
+        .gift-message {
+            width:
+                min(430px, 100%);
+
+            margin-top: 5px;
+
+            color:
+                rgba(244,220,233,.82);
+
+            font-size: 15px;
+
+            line-height: 1.8;
+
+            opacity: 0;
+
+            transform:
+                translateY(12px);
+
+            pointer-events: none;
+
+            transition:
+                opacity .6s ease,
+                transform .6s ease;
+        }
+
+        .gift-message.show {
+            opacity: 1;
+
+            transform:
+                translateY(0);
+        }
+
+
+        /* =========================================
+           LEVEL 3 — MOUNTAINS
+        ========================================= */
+
+        .mountains {
+            position: relative;
+
+            width:
+                min(900px, 100%);
+
+            height:
+                clamp(
+                    230px,
+                    35vw,
+                    300px
+                );
+
+            margin:
+                30px 0;
+
+            overflow: hidden;
+
+            border-radius: 30px;
+
+            background:
+                linear-gradient(
+                    180deg,
+                    #16152d,
+                    #281733
+                );
+
+            box-shadow:
+                0 20px 60px
+                rgba(0,0,0,.3);
+        }
+
+        .moon {
+            position: absolute;
+
+            top: 40px;
+
+            right: 9%;
+
+            width: 70px;
+            height: 70px;
+
+            border-radius: 50%;
+
+            background:
+                #fff2d5;
+
+            box-shadow:
+                0 0 40px
+                rgba(255,240,190,.5);
+        }
+
+        .mountain {
+            position: absolute;
+
+            bottom: -70px;
+
+            width: 0;
+            height: 0;
+
+            border-left:
+                220px solid transparent;
+
+            border-right:
+                220px solid transparent;
+
+            border-bottom:
+                300px solid #171523;
+        }
+
+        .mountain.one {
+            left: -120px;
+        }
+
+        .mountain.two {
+            left: 180px;
+
+            transform:
+                scale(1.3);
+
+            border-bottom-color:
+                #12111e;
+        }
+
+        .mountain.three {
+            right: -100px;
+
+            transform:
+                scale(.9);
+
+            border-bottom-color:
+                #0d0d18;
+        }
+
+        .mountain-snow {
+            position: absolute;
+
+            width: 0;
+            height: 0;
+
+            border-left:
+                45px solid transparent;
+
+            border-right:
+                45px solid transparent;
+
+            border-bottom:
+                70px solid #ddd6e8;
+
+            top: -5px;
+
+            left: -45px;
+        }
+
+
+        /* =========================================
+           LEVEL 4 — LETTER
+        ========================================= */
+
+        .letter {
+            width:
+                min(700px, 100%);
+
+            padding:
+                clamp(30px, 5vw, 45px)
+                clamp(22px, 5vw, 35px);
+
+            border-radius: 30px;
+
+            background:
+                linear-gradient(
+                    145deg,
+                    rgba(255,255,255,.1),
+                    rgba(255,255,255,.035)
+                );
+
+            border:
+                1px solid
+                rgba(255,255,255,.12);
+
+            box-shadow:
+                0 25px 80px
+                rgba(0,0,0,.35);
+
+            position: relative;
+        }
+
+        .letter::before {
+            content: "♡";
+
+            position: absolute;
+
+            top: 10px;
+
+            right: 25px;
+
+            font-size: 100px;
+
+            opacity: .04;
+
+            pointer-events: none;
+        }
+
+        .message {
+            position: relative;
+
+            z-index: 1;
+
+            font-family:
+                Georgia,
+                "Times New Roman",
+                serif;
+
+            font-size:
+                clamp(17px, 2vw, 19px);
+
+            line-height: 2;
+
+            color: #f4e9f0;
+        }
+
+        .signature {
+            margin-top: 30px;
+
+            font-size: 18px;
+
+            color: #ff9ac6;
+
+            font-style: italic;
+        }
+
+
+        /* =========================================
+           LEVEL 5
+        ========================================= */
+
+        .final-heart {
+            margin-bottom: 28px;
+
+            font-size:
+                clamp(
+                    75px,
+                    12vw,
+                    110px
+                );
+
+            animation:
+                heartbeat
+                2s
+                ease-in-out
+                infinite;
+
+            filter:
+                drop-shadow(
+                    0 0 30px
+                    rgba(255,79,154,.45)
+                );
+        }
+
+        @keyframes heartbeat {
+
+            0%, 100% {
+                transform:
+                    scale(1);
+            }
+
+            15% {
+                transform:
+                    scale(1.08);
+            }
+
+            30% {
+                transform:
+                    scale(1);
+            }
+
+            45% {
+                transform:
+                    scale(1.05);
+            }
+        }
+
+
+        /* =========================================
+           TABLET
+        ========================================= */
+
+        @media (max-width: 800px) {
+
+            .level {
+                padding-top: 100px;
+            }
+
+            .mountain {
+                border-left-width: 180px;
+
+                border-right-width: 180px;
+
+                border-bottom-width: 260px;
+            }
+
+            .mountain.two {
+                left: 25%;
+            }
+        }
+
+
+        /* =========================================
+           PHONE
+        ========================================= */
+
+        @media (max-width: 600px) {
+
+            .brand {
+                top: 17px;
+
+                font-size: 13px;
+
+                letter-spacing:
+                    2.5px;
+            }
+
+            .progress {
+                top: 45px;
+
+                gap: 6px;
+            }
+
+            .dot {
+                width: 7px;
+                height: 7px;
+            }
+
+            .dot.active {
+                width: 22px;
+            }
+
+            .level {
+                min-height: 100svh;
+
+                padding:
+                    85px
+                    16px
+                    85px;
+            }
+
+            h1 {
+                font-size:
+                    clamp(
+                        42px,
+                        13vw,
+                        62px
+                    );
+            }
+
+            h2 {
+                font-size:
+                    clamp(
+                        30px,
+                        9vw,
+                        44px
+                    );
+            }
+
+            .subtitle {
+                font-size: 14px;
+
+                line-height: 1.75;
+
+                margin-bottom: 25px;
+            }
+
+            .birthday-card {
+                padding:
+                    28px 20px;
+
+                border-radius: 22px;
+            }
+
+            .cake {
+                font-size: 78px;
+            }
+
+            .gift:hover {
+                transform:
+                    translateY(-3px)
+                    scale(1.02);
+            }
+
+            .mountains {
+                width: 100%;
+
+                height:
+                    clamp(
+                        210px,
+                        58vw,
+                        250px
+                    );
+
+                border-radius: 22px;
+            }
+
+            .moon {
+                width: 48px;
+                height: 48px;
+
+                top: 28px;
+
+                right: 10%;
+            }
+
+            .mountain {
+                bottom: -55px;
+
+                border-left-width: 135px;
+
+                border-right-width: 135px;
+
+                border-bottom-width: 205px;
+            }
+
+            .mountain.one {
+                left: -90px;
+            }
+
+            .mountain.two {
+                left: 22%;
+
+                transform:
+                    scale(1);
+            }
+
+            .mountain.three {
+                right: -80px;
+            }
+
+            .mountain-snow {
+                border-left-width: 28px;
+
+                border-right-width: 28px;
+
+                border-bottom-width: 43px;
+
+                left: -28px;
+            }
+
+            .letter {
+                border-radius: 22px;
+            }
+
+            .message {
+                font-size: 16px;
+
+                line-height: 1.9;
+            }
+
+            .signature {
+                font-size: 16px;
+            }
+
+            .navigation {
+                width: 100%;
+
+                gap: 9px;
+
+                margin-top: 25px;
+            }
+
+            .nav-btn {
+                min-width: 125px;
+
+                padding:
+                    11px 17px;
+
+                font-size: 13px;
+            }
+
+            .gift-message {
+                font-size: 14px;
+
+                line-height: 1.75;
+
+                padding:
+                    0 8px;
+            }
+        }
+
+
+        /* =========================================
+           SMALL PHONES
+        ========================================= */
+
+        @media (max-width: 380px) {
+
+            .level {
+                padding-left: 13px;
+
+                padding-right: 13px;
+            }
+
+            .cake {
+                font-size: 65px;
+            }
+
+            .gift {
+                transform:
+                    scale(.9);
+
+                margin-top: 20px;
+
+                margin-bottom: 20px;
+            }
+
+            .mountains {
+                height: 200px;
+            }
+
+            .letter {
+                padding:
+                    26px 18px;
+            }
+
+            .message {
+                font-size: 15px;
+            }
+
+            .nav-btn {
+                min-width: 118px;
+            }
+        }
+
+
+        /* =========================================
+           REDUCED MOTION
+        ========================================= */
+
+        @media (prefers-reduced-motion: reduce) {
+
+            *,
+            *::before,
+            *::after {
+                animation-duration:
+                    0.01ms !important;
+
+                animation-iteration-count:
+                    1 !important;
+
+                transition-duration:
+                    0.01ms !important;
+            }
+        }
+
+    </style>
+</head>
+
+
+<body>
+
+
+    <!-- =========================================
+         FIXED TITLE
+    ========================================= -->
+
+    <div class="brand">
+        B's Day
+    </div>
+
+
+    <!-- =========================================
+         BACKGROUND STARS
+    ========================================= -->
+
+    <div
+        class="sky"
+        id="sky"
+    ></div>
+
+
+    <!-- =========================================
+         PROGRESS
+    ========================================= -->
+
+    <div class="progress">
+
+        <div class="dot active"></div>
+
+        <div class="dot"></div>
+
+        <div class="dot"></div>
+
+        <div class="dot"></div>
+
+        <div class="dot"></div>
+
+    </div>
+
+
+    <!-- =========================================
+         APP
+    ========================================= -->
+
+    <main class="app">
+
+
+        <!-- =====================================
+             LEVEL 1
+        ====================================== -->
+
+        <section
+            class="level active"
+            id="level1"
+        >
+
+            <div class="cake">
+                🎂
+            </div>
+
+            <div class="eyebrow">
+                A tiny birthday adventure
+            </div>
+
+            <h1>
+                Happy Birthday
+                <br>
+                You ✨
+            </h1>
+
+            <div class="birthday-card">
+
+                <p class="subtitle">
+                    Some birthdays deserve more than a simple
+                    "Happy Birthday."
+                    <br>
+                    So... I prepared something slightly more
+                    dramatic. 😌
+                </p>
+
+                <button
+                    class="btn"
+                    onclick="nextLevel()"
+                >
+                    Begin the journey →
+                </button>
+
+            </div>
+
+        </section>
+
+
+        <!-- =====================================
+             LEVEL 2 — GIFT
+        ====================================== -->
+
+        <section
+            class="level"
+            id="level2"
+        >
+
+            <div class="eyebrow">
+                Level 2 · Something's waiting
+            </div>
+
+            <h2>
+                There's a little gift 🎁
+            </h2>
+
+            <p class="subtitle">
+                Go on. You know you want to open it.
+            </p>
+
+
+            <!--
+                Clicking the gift ONLY opens it.
+                It does NOT navigate.
+            -->
+
+            <div
+                class="gift"
+                id="gift"
+                onclick="openGift()"
+                role="button"
+                tabindex="0"
+                aria-label="Open the gift"
+            >
+
+                <div class="gift-lid"></div>
+
+                <div class="gift-box"></div>
+
+                <div class="ribbon-v"></div>
+
+                <div class="ribbon-h"></div>
+
+            </div>
+
+
+            <!--
+                This stays hidden until the
+                gift is opened.
+            -->
+
+            <div
+                class="gift-message"
+                id="giftMessage"
+            >
+                Okay okay... 😭
+
+                <br><br>
+
+                The actual gift isn't inside the box.
+
+                <br><br>
+
+                It's the next part of this journey. ❤️
+            </div>
+
+
+            <!-- Navigation -->
+
+            <div class="navigation">
+
+                <button
+                    class="nav-btn back-btn"
+                    onclick="previousLevel()"
+                >
+                    <span class="nav-icon">
+                        ←
+                    </span>
+
+                    <span>
+                        Back
+                    </span>
+                </button>
+
+
+                <button
+                    class="nav-btn next-btn"
+                    onclick="nextLevel()"
+                >
+                    <span>
+                        Continue
+                    </span>
+
+                    <span class="nav-icon">
+                        →
+                    </span>
+                </button>
+
+            </div>
+
+        </section>
+
+
+        <!-- =====================================
+             LEVEL 3 — MOUNTAINS
+        ====================================== -->
+
+        <section
+            class="level"
+            id="level3"
+        >
+
+            <div class="eyebrow">
+                Level 3 · Somewhere peaceful
+            </div>
+
+            <h2>
+                Let's go somewhere far away 🌙
+            </h2>
+
+            <p class="subtitle">
+                Somewhere between the mountains,
+                the stars and a ridiculously beautiful night.
+            </p>
+
+
+            <div class="mountains">
+
+                <div class="moon"></div>
+
+
+                <div class="mountain one">
+
+                    <div class="mountain-snow"></div>
+
+                </div>
+
+
+                <div class="mountain two">
+
+                    <div class="mountain-snow"></div>
+
+                </div>
+
+
+                <div class="mountain three">
+
+                    <div class="mountain-snow"></div>
+
+                </div>
+
+            </div>
+
+
+            <p class="subtitle">
+                Because some people deserve a birthday
+                view that looks a little magical. ✨
+            </p>
+
+
+            <div class="navigation">
+
+                <button
+                    class="nav-btn back-btn"
+                    onclick="previousLevel()"
+                >
+                    <span class="nav-icon">
+                        ←
+                    </span>
+
+                    <span>
+                        Back
+                    </span>
+                </button>
+
+
+                <button
+                    class="nav-btn next-btn"
+                    onclick="nextLevel()"
+                >
+                    <span>
+                        Continue
+                    </span>
+
+                    <span class="nav-icon">
+                        →
+                    </span>
+                </button>
+
+            </div>
+
+        </section>
+
+
+        <!-- =====================================
+             LEVEL 4 — MESSAGE
+        ====================================== -->
+
+        <section
+            class="level"
+            id="level4"
+        >
+
+            <div class="eyebrow">
+                Level 4 · A little message
+            </div>
+
+            <h2>
+                Now, for the important part. 💌
+            </h2>
+
+
+            <div class="letter">
+
+                <div class="message">
+
+                    <p>
+                        Nwnw tongthok achaima salni hamari pharwo.
+                        🍰👅
+                    </p>
+
+                    <br>
+
+                    <p>
+                        Nwnw Kwtora hamari pharwngthung 😇✨
+                    </p>
+
+                    <div class="signature">
+                        ~ Nini A 🦁
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="navigation">
+
+                <button
+                    class="nav-btn back-btn"
+                    onclick="previousLevel()"
+                >
+                    <span class="nav-icon">
+                        ←
+                    </span>
+
+                    <span>
+                        Back
+                    </span>
+                </button>
+
+
+                <button
+                    class="nav-btn next-btn"
+                    onclick="nextLevel()"
+                >
+                    <span>
+                        One last thing...
+                    </span>
+
+                    <span class="nav-icon">
+                        →
+                    </span>
+                </button>
+
+            </div>
+
+        </section>
+
+
+        <!-- =====================================
+             LEVEL 5 — FINAL
+        ====================================== -->
+
+        <section
+            class="level"
+            id="level5"
+        >
+
+            <div class="final-heart">
+                ❤️
+            </div>
+
+            <div class="eyebrow">
+                Final Level
+            </div>
+
+            <h1>
+                🎂
+            </h1>
+
+
+            <div class="navigation">
+
+                <button
+                    class="nav-btn back-btn"
+                    onclick="previousLevel()"
+                >
+                    <span class="nav-icon">
+                        ←
+                    </span>
+
+                    <span>
+                        Back
+                    </span>
+                </button>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <script>
+
+        /* =========================================
+           CREATE STARS
+        ========================================= */
+
+        const sky =
+            document.getElementById("sky");
+
+        for (let i = 0; i < 75; i++) {
+
+            const star =
+                document.createElement("div");
+
+            star.className =
+                "star";
+
+            star.style.left =
+                Math.random() * 100 + "%";
+
+            star.style.top =
+                Math.random() * 100 + "%";
+
+            star.style.animationDelay =
+                Math.random() * 4 + "s";
+
+            sky.appendChild(star);
+        }
+
+
+        /* =========================================
+           LEVEL STATE
+        ========================================= */
+
+        let currentLevel = 1;
+
+        const dots =
+            document.querySelectorAll(".dot");
+
+        const gift =
+            document.getElementById("gift");
+
+        const giftMessage =
+            document.getElementById(
+                "giftMessage"
+            );
+
+
+        /* =========================================
+           UPDATE PROGRESS
+        ========================================= */
+
+        function updateProgress() {
+
+            dots.forEach(
+                (dot, index) => {
+
+                    dot.classList.toggle(
+                        "active",
+                        index < currentLevel
+                    );
+
+                }
+            );
+        }
+
+
+        /* =========================================
+           SHOW LEVEL
+        ========================================= */
+
+        function showLevel(levelNumber) {
+
+            document
+                .getElementById(
+                    "level" + currentLevel
+                )
+                .classList.remove(
+                    "active"
+                );
+
+            currentLevel =
+                levelNumber;
+
+            document
+                .getElementById(
+                    "level" + currentLevel
+                )
+                .classList.add(
+                    "active"
+                );
+
+            updateProgress();
+
+            window.scrollTo({
+                top: 0,
+                behavior: "smooth"
+            });
+        }
+
+
+        /* =========================================
+           FORWARD NAVIGATION
+        ========================================= */
+
+        function nextLevel() {
+
+            if (currentLevel >= 5) {
+                return;
+            }
+
+            /*
+                IMPORTANT:
+
+                We deliberately do NOT reset
+                the gift here.
+
+                Therefore:
+
+                Open gift
+                    ↓
+                Continue
+                    ↓
+                Level 3
+                    ↓
+                Back
+                    ↓
+                Gift is wrapped
+
+                But if we later move forward
+                from the gift page, its state
+                remains whatever the user left it in.
+            */
+
+            showLevel(
+                currentLevel + 1
+            );
+        }
+
+
+        /* =========================================
+           BACK NAVIGATION
+        ========================================= */
+
+        function previousLevel() {
+
+            if (currentLevel <= 1) {
+                return;
+            }
+
+            /*
+                Special case:
+
+                Level 3 → Back → Level 2
+
+                The gift should be wrapped again.
+            */
+
+            if (currentLevel === 3) {
+
+                resetGift();
+            }
+
+            showLevel(
+                currentLevel - 1
+            );
+        }
+
+
+        /* =========================================
+           OPEN GIFT
+        ========================================= */
+
+        function openGift() {
+
+            /*
+                Don't restart the animation
+                if the gift is already open.
+            */
+
+            if (
+                gift.classList.contains(
+                    "open"
+                )
+            ) {
+                return;
+            }
+
+            gift.classList.add(
+                "open"
+            );
+
+            setTimeout(
+                () => {
+
+                    giftMessage.classList.add(
+                        "show"
+                    );
+
+                },
+                400
+            );
+        }
+
+
+        /* =========================================
+           RESET GIFT
+        ========================================= */
+
+        function resetGift() {
+
+            gift.classList.remove(
+                "open"
+            );
+
+            giftMessage.classList.remove(
+                "show"
+            );
+        }
+
+
+        /* =========================================
+           GIFT KEYBOARD ACCESSIBILITY
+        ========================================= */
+
+        gift.addEventListener(
+            "keydown",
+            function(event) {
+
+                if (
+                    event.key === "Enter" ||
+                    event.key === " "
+                ) {
+
+                    event.preventDefault();
+
+                    openGift();
+                }
+
+            }
+        );
+
+
+        /* =========================================
+           KEYBOARD NAVIGATION
+        ========================================= */
+
+        document.addEventListener(
+            "keydown",
+            function(event) {
+
+                /*
+                    Don't let arrow navigation
+                    interfere while the user is
+                    interacting with the gift.
+                */
+
+                if (
+                    event.key === "ArrowRight"
+                ) {
+
+                    nextLevel();
+                }
+
+                if (
+                    event.key === "ArrowLeft"
+                ) {
+
+                    previousLevel();
+                }
+
+            }
+        );
+
+    </script>
+
+</body>
+</html>
